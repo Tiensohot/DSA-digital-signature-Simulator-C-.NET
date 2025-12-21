@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 
 namespace DSA_DigitalSignature.Models
 {
-    public class SignatureFile
+    public class ManualSignatureFile
     {
         public string P { get; set; } = "";
         public string Q { get; set; } = "";
         public string G { get; set; } = "";
         public string Y { get; set; } = "";
-
         public string R { get; set; } = "";
         public string S { get; set; } = "";
     }
