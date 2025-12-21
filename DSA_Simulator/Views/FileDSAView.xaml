@@ -3,135 +3,95 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Background="#F5F5F5"  Title="FileDSAView">
 
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid Margin="15">
-
-            <!-- ===== GRID SETUP ===== -->
+    <ScrollViewer>
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <!-- title -->
-                <RowDefinition Height="Auto"/>
-                <!-- file -->
-                <RowDefinition Height="Auto"/>
-                <!-- signature -->
-                <RowDefinition Height="Auto"/>
-                <!-- p -->
-                <RowDefinition Height="Auto"/>
-                <!-- q -->
-                <RowDefinition Height="Auto"/>
-                <!-- g -->
-                <RowDefinition Height="Auto"/>
-                <!-- x -->
-                <RowDefinition Height="Auto"/>
-                <!-- k -->
-                <RowDefinition Height="Auto"/>
-                <!-- buttons -->
-                <RowDefinition Height="Auto"/>
-                <!-- status -->
-                <RowDefinition Height="*"/>
-                <!-- result -->
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="500"/>
             </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <!-- ===== TITLE ===== -->
-            <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
-                       Text="MÔ PHỎNG CHỮ KÝ SỐ DSA – FILE"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,15"/>
-
-            <!-- ===== FILE GỐC ===== -->
-            <TextBlock Grid.Row="1" Text="File cần ký / xác thực:"
-                       VerticalAlignment="Center"/>
-            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <Label Content="Kí File"  Foreground="Red"  FontWeight="Bold" HorizontalAlignment="Center" FontSize="23" Margin="0,10,0,0" Grid.Row="0"/>
+            <StackPanel Orientation="Horizontal" Margin="0,40,0,0" Width="630" Grid.Row="0">
+                <StackPanel Orientation="Vertical" Width="72">
+                    <TextBlock Text="Tham số p" FontWeight="Bold"/>
+                    <TextBox x:Name="txtP"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="22,0" Width="72">
+                    <TextBlock Text="Tham số q" FontWeight="Bold" Margin="0,0,0,0"/>
+                    <TextBox x:Name="txtQ"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="22,0" Width="72">
+                    <TextBlock Text="Tham số g" FontWeight="Bold" Margin="0,0,0,0"/>
+                    <TextBox x:Name="txtG"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="22,0" Width="104">
+                    <TextBlock Text="Khóa bí mật x" FontWeight="Bold" Margin="0,0,0,0" Width="118"/>
+                    <TextBox x:Name="txtX"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="22,0" Width="116">
+                    <TextBlock Text="Số ngẫu nhiên k" FontWeight="Bold" Margin="0,0,0,0"/>
+                    <TextBox x:Name="txtK"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel  Orientation="Horizontal" Margin="0,0,0,05" HorizontalAlignment="Center" Grid.Row="1">
+                <TextBlock  Text="File cần ký / xác thực:" Margin="0,20,0,05" FontWeight="Bold"/>
                 <TextBox x:Name="txtFilePath"
-                         Width="350"
-                         IsReadOnly="True"
-                         Margin="0,0,10,0"/>
+                         Width="217" Margin="11,0,0,0"
+                         IsReadOnly="True" Height="37"
+                         />
                 <Button Content="Chọn file"
-                        Width="100"
-                        Click="ChooseFile"/>
+                        Width="75" Margin="22,0,0,0"
+                        Click="ChooseFile" Height="32"/>
+                <Button Content="Tạo khóa DSA 2048-bit"
+        Width="154"
+        Margin="22,0,0,0"
+        Click="GenerateKey2048" Height="34"/>
             </StackPanel>
+            <TextBlock x:Name="txtStatus"
+                       Grid.Row="2"
+                       Background="AliceBlue"
+                       FontSize="14"
+                       FontWeight="Bold" 
+                       TextAlignment="Center"
+                       Margin="0,0,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="0,40,0,0" Width="630" Grid.Row="2" Background="AliceBlue">
+                <StackPanel Orientation ="Vertical" Width="300">
+                    <Label Content="Ký File" FontWeight="Bold"/>
+                    <TextBlock Text="Văn bản cần ký" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtMassage"
+           Height="188"
+           AcceptsReturn="True"
+           TextWrapping="Wrap"/>
+                    <Button Content="Ký File" HorizontalAlignment="Center" Width="151" Margin="0,8,0,2" Click="SignFile"/>
+                    <Label Content="Cặp khóa:" FontWeight="Bold"/>
+                    <TextBox x:Name="txtMessage1"
+           Height="124" Margin="0,1,0,2"
+           AcceptsReturn="True"
+           TextWrapping="Wrap"/>
+                </StackPanel>
 
-            <!-- ===== FILE CHỮ KÝ ===== -->
-            <TextBlock Grid.Row="2" Text="File chữ ký (.sig):"
-                       VerticalAlignment="Center"/>
-            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                <TextBox x:Name="txtSignaturePath"
-                         Width="350"
+                <StackPanel Orientation ="Vertical" Width="309">
+
+                    <Label Content="Xác thực File" FontWeight="Bold"/>
+                    <StackPanel  Orientation="Horizontal">
+                        <TextBox x:Name="txtSignaturePath"
+                         Width="206"
                          IsReadOnly="True"
                          Margin="0,0,10,0"/>
-                <Button Content="Chọn file chữ ký (.sig)"
-                        Width="200"
+                        <Button Content="Chọn file chữ ký (.sig)"
+                        Width="92"
                         Click="ChooseSignatureFile"/>
-            </StackPanel>
-
-            <!-- ===== p ===== -->
-            <TextBlock Grid.Row="3" Text="p:" VerticalAlignment="Center"/>
-            <TextBox x:Name="txtP" Grid.Row="3" Grid.Column="1" Width="250"/>
-
-            <!-- ===== q ===== -->
-            <TextBlock Grid.Row="4" Text="q:" VerticalAlignment="Center"/>
-            <TextBox x:Name="txtQ" Grid.Row="4" Grid.Column="1" Width="250"/>
-
-            <!-- ===== g ===== -->
-            <TextBlock Grid.Row="5" Text="g:" VerticalAlignment="Center"/>
-            <TextBox x:Name="txtG" Grid.Row="5" Grid.Column="1" Width="250"/>
-
-            <!-- ===== x ===== -->
-            <TextBlock Grid.Row="6" Text="x (Private key):"
-                       VerticalAlignment="Center"/>
-            <TextBox x:Name="txtX" Grid.Row="6" Grid.Column="1" Width="250"/>
-
-            <!-- ===== k ===== -->
-            <TextBlock Grid.Row="7" Text="k (1 &lt; k &lt; q):"
-                       VerticalAlignment="Center"/>
-            <TextBox x:Name="txtK"
-                     Grid.Row="7"
-                     Grid.Column="1"
-                     Width="250"
-                     ToolTip="Số ngẫu nhiên dùng khi ký"/>
-
-            <!-- ===== BUTTONS ===== -->
-            <StackPanel Grid.Row="8"
-                        Grid.ColumnSpan="2"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Center"
-                        Margin="0,15,0,10">
-                <Button Content="Ký file"
+                    </StackPanel>
+                    <Button Content="Xác thực file"
                         Width="120"
-                        Margin="5"
-                        Click="SignFile"/>
-                <Button Content="Xác thực file"
-                        Width="120"
-                        Margin="5"
+                        Margin="10"
                         Click="VerifyFile"/>
+
+                    <GroupBox Header="📘 Quá trình xác thực DSA" Margin="0,20,0,0">
+                        <TextBox x:Name="txtVerifySteps" Height="220" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                    </GroupBox>
+                </StackPanel>
             </StackPanel>
-
-            <!-- ===== STATUS ===== -->
-            <TextBlock x:Name="txtStatus"
-                       Grid.Row="9"
-                       Grid.ColumnSpan="2"
-                       FontSize="14"
-                       FontWeight="Bold"
-                       TextAlignment="Center"
-                       Margin="0,5,0,10"/>
-
-            <!-- ===== RESULT DETAIL ===== -->
-            <TextBox x:Name="txtResult"
-                     Grid.Row="10"
-                     Grid.ColumnSpan="2"
-                     Height="260"
-                     AcceptsReturn="True"
-                     VerticalScrollBarVisibility="Auto"
-                     TextWrapping="Wrap"
-                     IsReadOnly="True"/>
-
         </Grid>
     </ScrollViewer>
 </Page>
