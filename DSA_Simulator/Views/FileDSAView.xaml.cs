@@ -18,6 +18,7 @@ namespace DSA_DigitalSignature.Views
     public partial class FileDSAView : Page
     {
         string? filePath;          // file cần ký / xác thực
+        string? verifyFilePath;   // file cần xác thực
         string? signaturePath;     // file chữ ký
         SignatureFile? loadedSig;  // dữ liệu chữ ký
 
@@ -277,6 +278,19 @@ namespace DSA_DigitalSignature.Views
             }
         }
 
+        private void ChonFileVerify(object sender, RoutedEventArgs e)
+        {
+            var open = new OpenFileDialog
+            {
+                Filter = "Text / Word (*.txt;*.docx)|*.txt;*.docx|All files (*.*)|*.*"
+            };
+
+            if (open.ShowDialog() == true)
+            {
+                verifyFilePath = open.FileName;
+                txtFilePathVerify.Text = verifyFilePath;
+            }
+        }
 
         // ===================== CHỌN FILE CHỮ KÝ (TỰ VERIFY) =====================
         private void ChooseSignatureFile(object sender, RoutedEventArgs e)
@@ -319,8 +333,14 @@ namespace DSA_DigitalSignature.Views
             BigInteger y = BigInteger.Parse(loadedSig.Y);
             BigInteger r = BigInteger.Parse(loadedSig.R);
             BigInteger s = BigInteger.Parse(loadedSig.S);
+            if (loadedSig == null || string.IsNullOrEmpty(verifyFilePath))
+            {
+                MessageBox.Show("⚠ Vui lòng chọn file cần xác thực");
+                return;
+            }
 
-            string content = File.ReadAllText(filePath);
+            string content = File.ReadAllText(verifyFilePath);
+
             BigInteger H = HashService.ComputeSHA256(content);
 
             BigInteger w = DsaMathService.ModInverse(s, q);
