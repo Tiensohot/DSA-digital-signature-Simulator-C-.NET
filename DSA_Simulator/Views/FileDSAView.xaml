@@ -6,12 +6,12 @@
     <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="120"/>
                 <RowDefinition Height="80"/>
-                <RowDefinition Height="500"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Content="Kí File"  Foreground="Red"  FontWeight="Bold" HorizontalAlignment="Center" FontSize="23" Margin="0,10,0,0" Grid.Row="0"/>
-            <StackPanel Orientation="Horizontal" Margin="0,40,0,0" Width="630" Grid.Row="0">
+            <Label Content="Ký và xác thực File"  Foreground="Red"  FontWeight="Bold" HorizontalAlignment="Center" FontSize="23" Margin="0,8,0,0" Grid.Row="0"/>
+            <StackPanel Orientation="Horizontal" Margin="0,60,0,0" Width="670" Grid.Row="0">
                 <StackPanel Orientation="Vertical" Width="72">
                     <TextBlock Text="Tham số p" FontWeight="Bold"/>
                     <TextBox x:Name="txtP"/>
@@ -54,9 +54,9 @@
                        FontWeight="Bold" 
                        TextAlignment="Center"
                        Margin="0,0,0,0"/>
-            <StackPanel Orientation="Horizontal" Margin="0,40,0,0" Width="630" Grid.Row="2" Background="AliceBlue">
+            <StackPanel Orientation="Horizontal" Margin="0,40,0,0" Width="670" Grid.Row="2" Background="AliceBlue">
                 <StackPanel Orientation ="Vertical" Width="300">
-                    <Label Content="Ký File" FontWeight="Bold"/>
+                    <Label Content="Ký File" FontWeight="Bold" FontSize="17" Foreground="Red" HorizontalAlignment="Center"/>
                     <TextBlock Text="Văn bản cần ký" FontWeight="Bold" Margin="0,10,0,0"/>
                     <TextBox x:Name="txtMassage"
            Height="188"
@@ -70,16 +70,26 @@
            TextWrapping="Wrap"/>
                 </StackPanel>
 
-                <StackPanel Orientation ="Vertical" Width="309">
-
-                    <Label Content="Xác thực File" FontWeight="Bold"/>
+                <StackPanel Orientation ="Vertical" Width="359">
+                    <Label Content="Xác Thực" FontWeight="Bold" FontSize="17" Foreground="Red" HorizontalAlignment="Center"  />
+                    <Label Content="File cần xác thực" FontWeight="Bold"/>
                     <StackPanel  Orientation="Horizontal">
+                        <TextBox x:Name="txtFilePathVerify" 
+                        Width="206"
+                        IsReadOnly="True"
+                        Margin="5,0,10,0"/>
+                        <Button Content="Chọn file"
+                        Width="114"
+                        Click="ChonFileVerify"/>
+                    </StackPanel>
+                    <Label Content="File chữ ký" FontWeight="Bold"/>
+                    <StackPanel  Orientation="Horizontal" Width="356">
                         <TextBox x:Name="txtSignaturePath"
                          Width="206"
                          IsReadOnly="True"
-                         Margin="0,0,10,0"/>
-                        <Button Content="Chọn file chữ ký (.sig)"
-                        Width="92"
+                         Margin="5,0,10,0"/>
+                        <Button Content="Chọn file chữ ký(.sig)"
+                        Width="126" FontSize="12"
                         Click="ChooseSignatureFile"/>
                     </StackPanel>
                     <Button Content="Xác thực file"
